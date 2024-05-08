@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AttackStyle" load_steps=3 format=3 uid="uid://02qjl3akssev"]
+
+[ext_resource type="Script" path="res://Combat/DamageType.gd" id="1_nqutk"]
+[ext_resource type="Texture2D" uid="uid://c4bfr2cs1i0an" path="res://Art/StyleIcons/magic_attack_icon.png" id="1_wgqr1"]
+
+[resource]
+script = ExtResource("1_nqutk")
+icon = ExtResource("1_wgqr1")
+style_name = "Magic"
+stat_to_scale_with = 3
+defense_to_compare = 6

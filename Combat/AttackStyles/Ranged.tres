@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AttackStyle" load_steps=3 format=3 uid="uid://dgiekawwbv8sg"]
+
+[ext_resource type="Texture2D" uid="uid://vskjx6vfsjfd" path="res://Art/StyleIcons/ranged_atk_icon.png" id="1_abncs"]
+[ext_resource type="Script" path="res://Combat/DamageType.gd" id="1_ysmjq"]
+
+[resource]
+script = ExtResource("1_ysmjq")
+icon = ExtResource("1_abncs")
+style_name = "Ranged"
+stat_to_scale_with = 2
+defense_to_compare = 5

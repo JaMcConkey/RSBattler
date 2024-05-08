@@ -1,0 +1,298 @@
+[gd_scene load_steps=30 format=3 uid="uid://dfixtfujng4ti"]
+
+[ext_resource type="Script" path="res://battle_scene.gd" id="1_ks00w"]
+[ext_resource type="Texture2D" uid="uid://cq7471gmgrhc4" path="res://icon.svg" id="3_iw434"]
+[ext_resource type="Script" path="res://InventoryUI.gd" id="3_jv0f0"]
+[ext_resource type="Script" path="res://StatModifier.gd" id="3_l0f3w"]
+[ext_resource type="Script" path="res://Items/ItemData.gd" id="3_r7hix"]
+[ext_resource type="PackedScene" uid="uid://bht46ae1vw6rr" path="res://Inventory/i_slot_scene.tscn" id="4_7f6f3"]
+[ext_resource type="Script" path="res://CharacterStats.gd" id="4_qv34e"]
+[ext_resource type="PackedScene" uid="uid://bbwllewpf8iij" path="res://enemy.tscn" id="4_tctfb"]
+[ext_resource type="Script" path="res://Items/EquipItem.gd" id="5_m02j2"]
+[ext_resource type="Script" path="res://Inventory/EquipInventory.gd" id="6_42tpi"]
+[ext_resource type="Resource" uid="uid://dqiadjlb6756" path="res://Combat/DefenseStyles/MeleeDefense.tres" id="6_n45gk"]
+[ext_resource type="Script" path="res://EnemyData.gd" id="7_sb4fb"]
+[ext_resource type="Texture2D" uid="uid://ci8ldekevcoo6" path="res://Icon9.png" id="8_xxnh6"]
+[ext_resource type="Resource" uid="uid://cu6y4a7wvs0qp" path="res://Combat/DefenseStyles/MagicDefense.tres" id="9_4s18o"]
+[ext_resource type="Resource" uid="uid://5wye62tyu55c" path="res://Combat/DefenseStyles/RangedDefense.tres" id="10_vklvc"]
+[ext_resource type="PackedScene" uid="uid://8d5mmk3sjpdk" path="res://StatPanel.tscn" id="10_xst43"]
+[ext_resource type="Resource" uid="uid://bjtfcsddl05rm" path="res://Items/Sword.tres" id="18_b1i62"]
+[ext_resource type="Script" path="res://ShowStatButton.gd" id="21_7f6lh"]
+[ext_resource type="PackedScene" uid="uid://b7qviwi16hvf4" path="res://draggable.tscn" id="21_g77o8"]
+[ext_resource type="PackedScene" uid="uid://ddcbn78fqt1ge" path="res://atk_style_button.tscn" id="23_maivm"]
+[ext_resource type="Script" path="res://AttackResolver.gd" id="23_to1fa"]
+
+[sub_resource type="Resource" id="Resource_tx7mp"]
+script = ExtResource("3_r7hix")
+item_name = "ddd"
+item_description = "dd"
+item_type = 0
+
+[sub_resource type="Resource" id="Resource_lre1g"]
+script = ExtResource("3_l0f3w")
+stat = 1
+add_amount = 5.0
+multiplier = 0.0
+
+[sub_resource type="Resource" id="Resource_oymcx"]
+script = ExtResource("4_qv34e")
+starting_attack_speed = 5
+starting_melee_power = 7
+starting_ranged_power = 2
+starting_magic_power = 2
+starting_melee_defense = 2
+starting_ranged_defense = 2
+starting_magic_defense = 2
+starting_max_health = 100
+starting_crit_chance = 0
+
+[sub_resource type="Resource" id="Resource_hwdns"]
+script = ExtResource("7_sb4fb")
+potential_damage_types = Array[Resource("res://Combat/DamageType.gd")]([])
+potential_defense_styles = Array[Resource("res://Combat/DefenseStyle.gd")]([ExtResource("6_n45gk"), ExtResource("9_4s18o"), ExtResource("10_vklvc")])
+enemy_stats = SubResource("Resource_oymcx")
+sprite = ExtResource("8_xxnh6")
+
+[sub_resource type="Resource" id="Resource_xt3uk"]
+script = ExtResource("3_l0f3w")
+stat = 2
+add_amount = 4.0
+multiplier = 0.0
+
+[sub_resource type="Resource" id="Resource_jywmt"]
+script = ExtResource("5_m02j2")
+test_stat_increase = Array[ExtResource("3_l0f3w")]([SubResource("Resource_xt3uk")])
+gain_atk_styles = Array[Resource("res://Combat/DamageType.gd")]([])
+gain_def_styles = Array[Resource("res://Combat/DefenseStyle.gd")]([])
+equip_slot = 2
+item_name = "fff"
+item_description = "fff"
+item_type = 2
+texture = ExtResource("3_iw434")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fam2e"]
+bg_color = Color(1, 0.328057, 0.384118, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pi14k"]
+bg_color = Color(0, 0.716548, 0.391859, 1)
+
+[node name="BattleScene" type="Node2D" node_paths=PackedStringArray("enemy_to_init")]
+script = ExtResource("1_ks00w")
+test_add_tem = SubResource("Resource_tx7mp")
+stat_mod = SubResource("Resource_lre1g")
+test_enemy_data = SubResource("Resource_hwdns")
+enemy_to_init = NodePath("Enemy")
+temp_style_button = ExtResource("23_maivm")
+
+[node name="Enemy" parent="." instance=ExtResource("4_tctfb")]
+position = Vector2(184, 216)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Inv" type="GridContainer" parent="CanvasLayer"]
+unique_name_in_owner = true
+layout_direction = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -192.0
+offset_right = 176.0
+offset_bottom = -8.0
+grow_vertical = 0
+size_flags_horizontal = 8
+size_flags_vertical = 10
+mouse_filter = 2
+columns = 5
+script = ExtResource("3_jv0f0")
+slot_scene = ExtResource("4_7f6f3")
+test_load_item = SubResource("Resource_jywmt")
+test_load_item2 = ExtResource("18_b1i62")
+inventory_rows = 5
+inventory_columns = 5
+
+[node name="EquipInventory" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -128.0
+offset_top = 248.0
+offset_bottom = 416.0
+grow_horizontal = 0
+script = ExtResource("6_42tpi")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/EquipInventory"]
+layout_mode = 0
+offset_left = 1106.0
+offset_top = 2.0
+offset_right = 1146.0
+offset_bottom = 250.0
+
+[node name="GearSlots" type="Panel" parent="CanvasLayer/EquipInventory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HeadSlot" parent="CanvasLayer/EquipInventory/GearSlots" node_paths=PackedStringArray("slot_type_icon") instance=ExtResource("4_7f6f3")]
+layout_mode = 1
+offset_left = 48.0
+offset_right = -48.0
+offset_bottom = -136.0
+slot_type_icon = NodePath("SlotTypeIcon")
+type = 2
+
+[node name="ChestSlot" parent="CanvasLayer/EquipInventory/GearSlots" node_paths=PackedStringArray("slot_type_icon") instance=ExtResource("4_7f6f3")]
+layout_mode = 1
+offset_left = 48.0
+offset_top = 40.0
+offset_right = -48.0
+offset_bottom = -96.0
+slot_type_icon = NodePath("SlotTypeIcon")
+type = 3
+
+[node name="LegSlot" parent="CanvasLayer/EquipInventory/GearSlots" node_paths=PackedStringArray("slot_type_icon") instance=ExtResource("4_7f6f3")]
+layout_mode = 1
+offset_left = 48.0
+offset_top = 80.0
+offset_right = -48.0
+offset_bottom = -56.0
+slot_type_icon = NodePath("SlotTypeIcon")
+type = 4
+
+[node name="GloveSlot" parent="CanvasLayer/EquipInventory/GearSlots" node_paths=PackedStringArray("slot_type_icon") instance=ExtResource("4_7f6f3")]
+layout_mode = 1
+offset_left = 8.0
+offset_top = 64.0
+offset_right = -88.0
+offset_bottom = -72.0
+slot_type_icon = NodePath("SlotTypeIcon")
+type = 5
+
+[node name="FootSlot" parent="CanvasLayer/EquipInventory/GearSlots" node_paths=PackedStringArray("slot_type_icon") instance=ExtResource("4_7f6f3")]
+layout_mode = 1
+offset_left = 88.0
+offset_top = 64.0
+offset_right = -8.0
+offset_bottom = -72.0
+slot_type_icon = NodePath("SlotTypeIcon")
+type = 6
+
+[node name="MainHandSlot" parent="CanvasLayer/EquipInventory/GearSlots" node_paths=PackedStringArray("slot_type_icon") instance=ExtResource("4_7f6f3")]
+layout_mode = 1
+offset_left = 16.0
+offset_top = 120.0
+offset_right = -80.0
+offset_bottom = -16.0
+slot_type_icon = NodePath("SlotTypeIcon")
+type = 7
+
+[node name="OffHandSlot" parent="CanvasLayer/EquipInventory/GearSlots" node_paths=PackedStringArray("slot_type_icon") instance=ExtResource("4_7f6f3")]
+layout_mode = 1
+offset_left = 80.0
+offset_top = 120.0
+offset_right = -16.0
+offset_bottom = -16.0
+slot_type_icon = NodePath("SlotTypeIcon")
+type = 8
+
+[node name="Stats" parent="CanvasLayer" node_paths=PackedStringArray("melee_atk_value", "magic_atk_value", "ranged_atk_value", "melee_def_value", "magic_def_value", "ranged_def_value") instance=ExtResource("10_xst43")]
+offset_left = 520.0
+offset_top = 352.0
+offset_right = 704.0
+offset_bottom = 576.0
+melee_atk_value = NodePath("Panel/ATTACKCONTAINER/ATTACK/ATTACK_CONTAINER/StatLabel/MELEE_ATTACK_VALUE")
+magic_atk_value = NodePath("Panel/ATTACKCONTAINER/ATTACK/ATTACK_CONTAINER/StatLabel2/MAGIC_ATK_VAL")
+ranged_atk_value = NodePath("Panel/ATTACKCONTAINER/ATTACK/ATTACK_CONTAINER/StatLabel3/RANGE_VAL")
+melee_def_value = NodePath("Panel/DEF/DEF/ATTACK_CONTAINER/StatLabel/DEF_VALUE")
+magic_def_value = NodePath("Panel/DEF/DEF/ATTACK_CONTAINER/StatLabel2/MAGIC_VAL")
+ranged_def_value = NodePath("Panel/DEF/DEF/ATTACK_CONTAINER/StatLabel3/RANGE_VAL")
+
+[node name="DragBar" type="Panel" parent="CanvasLayer/Stats"]
+layout_mode = 0
+offset_top = -32.0
+offset_right = 184.0
+
+[node name="Draggable" parent="CanvasLayer/Stats/DragBar" instance=ExtResource("21_g77o8")]
+layout_mode = 1
+
+[node name="Draggable2" parent="CanvasLayer/Stats/DragBar" instance=ExtResource("21_g77o8")]
+layout_mode = 1
+
+[node name="PlayerInfo" type="Panel" parent="CanvasLayer"]
+offset_left = 720.0
+offset_top = 216.0
+offset_right = 1016.0
+offset_bottom = 400.0
+
+[node name="CheckButton" type="CheckButton" parent="CanvasLayer"]
+offset_left = 768.0
+offset_right = 812.0
+offset_bottom = 24.0
+text = "ShowStats"
+script = ExtResource("21_7f6lh")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+offset_left = 456.0
+offset_top = 8.0
+offset_right = 704.0
+offset_bottom = 56.0
+
+[node name="PlayerStuff" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 480.0
+offset_top = 16.0
+offset_right = 520.0
+offset_bottom = 56.0
+
+[node name="AttackTimer" type="ProgressBar" parent="CanvasLayer/PlayerStuff"]
+layout_mode = 0
+offset_left = -64.0
+offset_right = 64.0
+offset_bottom = 27.0
+value = 33.0
+
+[node name="HealthBar" type="ProgressBar" parent="CanvasLayer/PlayerStuff"]
+layout_mode = 0
+offset_left = -64.0
+offset_top = 56.0
+offset_right = 64.0
+offset_bottom = 83.0
+theme_override_styles/background = SubResource("StyleBoxFlat_fam2e")
+theme_override_styles/fill = SubResource("StyleBoxFlat_pi14k")
+value = 33.0
+show_percentage = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/PlayerStuff/HealthBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CurHealth" type="Label" parent="CanvasLayer/PlayerStuff/HealthBar/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100"
+horizontal_alignment = 2
+
+[node name="Divider" type="Label" parent="CanvasLayer/PlayerStuff/HealthBar/HBoxContainer"]
+layout_mode = 2
+text = "/"
+
+[node name="MaxHealth" type="Label" parent="CanvasLayer/PlayerStuff/HealthBar/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100"
+
+[node name="PlayerAttackTimer" type="Timer" parent="CanvasLayer/PlayerStuff"]
+
+[node name="AttackResolver" type="Node" parent="."]
+script = ExtResource("23_to1fa")
+
+[connection signal="toggled" from="CanvasLayer/CheckButton" to="CanvasLayer/CheckButton" method="_on_toggled"]
+[connection signal="timeout" from="CanvasLayer/PlayerStuff/PlayerAttackTimer" to="." method="_on_player_attack_timer_timeout"]

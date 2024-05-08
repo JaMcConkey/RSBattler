@@ -1,0 +1,56 @@
+[gd_scene load_steps=10 format=3 uid="uid://dfixtfujng4ti"]
+
+[ext_resource type="Script" path="res://battle_scene.gd" id="1_ks00w"]
+[ext_resource type="Texture2D" uid="uid://cq7471gmgrhc4" path="res://icon.svg" id="3_iw434"]
+[ext_resource type="Script" path="res://InventoryUI.gd" id="3_jv0f0"]
+[ext_resource type="Script" path="res://Items/ItemData.gd" id="3_r7hix"]
+[ext_resource type="Texture2D" uid="uid://d164cogybf64p" path="res://helm.png" id="4_la3ev"]
+[ext_resource type="Script" path="res://PlayerManager.gd" id="7_huhhm"]
+
+[sub_resource type="Resource" id="Resource_tx7mp"]
+script = ExtResource("3_r7hix")
+item_name = "ddd"
+item_description = "dd"
+item_type = 0
+
+[sub_resource type="Resource" id="Resource_uhcas"]
+script = ExtResource("3_r7hix")
+item_name = ""
+item_description = ""
+item_type = 0
+texture = ExtResource("3_iw434")
+
+[sub_resource type="Resource" id="Resource_y7qv5"]
+script = ExtResource("3_r7hix")
+item_name = ""
+item_description = ""
+item_type = 65536
+texture = ExtResource("4_la3ev")
+
+[node name="BattleScene" type="Node2D"]
+script = ExtResource("1_ks00w")
+test_add_tem = SubResource("Resource_tx7mp")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 317.0
+offset_bottom = 298.0
+mouse_filter = 2
+
+[node name="Inv" type="GridContainer" parent="CanvasLayer/Control"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 802.0
+offset_bottom = 573.0
+mouse_filter = 2
+columns = 4
+script = ExtResource("3_jv0f0")
+test_load_item = SubResource("Resource_uhcas")
+test_load_item2 = SubResource("Resource_y7qv5")
+inventory_columns = 4
+
+[node name="PlayerManager" type="Node" parent="."]
+script = ExtResource("7_huhhm")

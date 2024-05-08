@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AttackStyle" load_steps=3 format=3 uid="uid://btljdq7p4xo2c"]
+
+[ext_resource type="Script" path="res://Combat/DamageType.gd" id="1_h44nm"]
+[ext_resource type="Texture2D" uid="uid://dpw1t6q5sxugh" path="res://Art/StyleIcons/Melee_icon.png" id="1_vn3ti"]
+
+[resource]
+script = ExtResource("1_h44nm")
+icon = ExtResource("1_vn3ti")
+style_name = "Melee"
+stat_to_scale_with = 1
+defense_to_compare = 4

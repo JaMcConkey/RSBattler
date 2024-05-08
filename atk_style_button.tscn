@@ -1,0 +1,22 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddcbn78fqt1ge"]
+
+[ext_resource type="Script" path="res://ATK_STYLE_BUTTON.gd" id="1_7llx2"]
+
+[node name="ATK_STYLE_BUTTON" type="Control"]
+custom_minimum_size = Vector2(96, 40)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 96.0
+offset_bottom = 40.0
+script = ExtResource("1_7llx2")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "STYLE"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://bht46ae1vw6rr"]
+
+[ext_resource type="Script" path="res://Inventory/InventorySlot.gd" id="1_a0r71"]
+
+[node name="ISlotScene" type="PanelContainer" node_paths=PackedStringArray("slot_type_icon")]
+custom_minimum_size = Vector2(32, 32)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_a0r71")
+slot_type_icon = NodePath("SlotTypeIcon")
+
+[node name="SlotTypeIcon" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.337255)
+layout_mode = 2

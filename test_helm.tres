@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="EquipItem" load_steps=4 format=3 uid="uid://cy1csbnvoel4y"]
+
+[ext_resource type="Script" path="res://Items/EquipItem.gd" id="1_sp0s2"]
+[ext_resource type="Script" path="res://StatModifier.gd" id="2_xm7fa"]
+
+[sub_resource type="Resource" id="Resource_8mmuc"]
+script = ExtResource("2_xm7fa")
+stat = 1
+add_amount = 6.0
+multiplier = 0.0
+
+[resource]
+script = ExtResource("1_sp0s2")
+test_stat_increase = Array[ExtResource("2_xm7fa")]([SubResource("Resource_8mmuc")])
+gain_atk_styles = Array[Resource("res://Combat/DamageType.gd")]([])
+gain_def_styles = Array[Resource("res://Combat/DefenseStyle.gd")]([])
+equip_slot = 0
+item_name = ""
+item_description = ""
+item_type = 0
