@@ -3,6 +3,8 @@ class_name EquipInventory
 
 signal equip_updated
 
+const default_weapon = preload("res://Items/Punch.tres")
+
 @onready var head_slot = $GearSlots/HeadSlot
 @onready var chest_slot = $GearSlots/ChestSlot
 @onready var leg_slot = $GearSlots/LegSlot
@@ -34,9 +36,6 @@ func _on_equip(item : InventoryItem):
 		for stat_mod in itemm.test_stat_increase:
 			var test = PlayerManager.stats.get_stat(stat_mod.stat)
 			test.add_modifier(stat_mod, item)
-		for style in itemm.gain_atk_styles:
-			print("ADD STYLE HERE")
-			PlayerManager.add_damage_type(style)
 			#var stat_to_mod = PlayerManager.stats.apply_modifier(stat_mod,item)
 	else:
 		print("WASNT EQUIP ITEM")
@@ -49,8 +48,6 @@ func _on_unequip(item : InventoryItem):
 		for stat_mod in itemm.test_stat_increase:
 			var stat_to_mod = PlayerManager.stats.get_stat(stat_mod.stat)
 			stat_to_mod.remove_modifiers_from_source(item)
-		for style in itemm.gain_atk_styles:
-			PlayerManager.remove_damage_type(style)
 		print("UNEQUIPPED : ", item.data.item_name)
 	else:
 		return
@@ -95,3 +92,13 @@ func is_equiped(item : InventoryItem) -> bool:
 		if slot.get_slot_item() == item:
 			return true
 	return false
+func get_equipped_item(slot_enum: EquipItem.EquipSlot) -> InventoryItem:
+	var slot = _get_slot_from_enum(slot_enum)
+	return slot.get_slot_item()
+func get_weapon() -> Weapon:
+	var weapon = get_equipped_item(EquipItem.EquipSlot.MAIN_HAND)
+	if weapon:
+		if weapon.data is Weapon:
+			return weapon.data
+	print("returning default weapon : ",default_weapon.item_name)
+	return default_weapon

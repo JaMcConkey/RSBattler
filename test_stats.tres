@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_njh5s")
-starting_attack_speed = 11
+starting_attack_speed = 2
 starting_melee_power = 2
 starting_ranged_power = 3
 starting_magic_power = 4

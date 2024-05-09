@@ -2,13 +2,21 @@ extends Node2D
 class_name Enemy
 
 signal targeted(Enemy)
+signal enemy_dead(Enemy)
 
 @onready var select_area = $SelectArea
 @onready var hovered = $hovered
 @onready var selected = $selected
 @onready var attack_timer = $AttackTimer
+@onready var range_def_labal = $StatsDisplay/HBoxContainer/RangedDef/Range_Def_labal
+@onready var magic_def_label = $StatsDisplay/HBoxContainer/MagicDef/Magic_Def_label
+@onready var melee_def_labal = $StatsDisplay/HBoxContainer/MeleeDef/Melee_Def_labal
 
-var cur_atk_style : AttackStyle
+
+
+
+
+var cur_dmg_type : DamageType
 var cur_def_style : DefenseStyle
 var stats : CharacterStats
 var data : EnemyData
@@ -28,14 +36,20 @@ func init_enemy(enemy_data : EnemyData):
 	data = enemy_data
 	stats = enemy_data.enemy_stats.duplicate()
 	cur_health = stats.get_stat(CharacterStats.StatType.MAX_HEALTH).value
+	stats.stats_changed.connect(update_ui)
 	start_attack()
 	choose_damage_type()
 	choose_def_style()
+	update_ui(stats)
 	pass
 
+func update_ui(character_stats : CharacterStats):
+	magic_def_label.text = str(character_stats.get_stat_by_string("magic_defense").value)
+	melee_def_labal.text = str(character_stats.get_stat_by_string("melee_defense").value)
+	range_def_labal.text = str(character_stats.get_stat_by_string("ranged_defense").value)
 func choose_damage_type():
-	cur_atk_style = data.choose_damage_type()
-	$AttackTimerBar/PanelContainer/damage_type_Icon.texture = cur_atk_style.icon
+	cur_dmg_type = data.choose_damage_type()
+	$AttackTimerBar/PanelContainer/Attack_Style_Icon.texture = cur_dmg_type.icon
 	pass
 func choose_def_style():
 	cur_def_style = data.chose_defense_style()
@@ -44,24 +58,28 @@ func choose_def_style():
 
 func get_attacked(attack : Attack):
 	var hit = attack
-	cur_def_style.modify_attack(hit,stats)
+	if cur_def_style:
+		cur_def_style.modify_attack(hit,stats)
 	cur_health -= hit.damage_amount
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	select_area.hovered_changed.connect(show_hover)
-	select_area.selection_toggled.connect(show_select)
+	select_area.selection_toggled.connect(emit_selected)
 	pass # Replace with function body.
 
 func show_hover(state : bool):
 	if not select_area.selected:
 		hovered.visible = state
 
-func show_select(state : bool):
-	selected.visible = state
-	targeted.emit(self)
+func emit_selected(state : bool):
+	toggle_selected(state)
 	if state:
-		hovered.hide()
+		targeted.emit(self)
+
+func toggle_selected(state : bool):
+	hovered.visible = false
+	selected.visible = state
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -71,7 +89,7 @@ func _process(delta):
 
 func _on_attack_timer_timeout():
 	print(stats.get_stat(CharacterStats.StatType.MELEE_POWER).value)
-	var attack = Attack.new(cur_atk_style,stats)
+	var attack = Attack.new(cur_dmg_type,stats)
 	PlayerManager.get_hit(attack)
 	choose_damage_type()
 
@@ -79,3 +97,7 @@ func start_attack():
 	var atk_speed = stats.get_stat(CharacterStats.StatType.ATTACK_SPEED).value
 	$AttackTimerBar.max_value = atk_speed
 	attack_timer.start(atk_speed)
+
+func die():
+	enemy_dead.emit(self)
+	pass

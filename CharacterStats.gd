@@ -68,3 +68,28 @@ func get_stat(stat_type):
 	if not init:
 		init_stats()
 	return stats.get(stat_type)
+func get_stat_by_string(stat_string: String) -> Stat:
+	var lowercase_stat_string = stat_string.to_lower()
+	match lowercase_stat_string:
+		"attack_speed":
+			return get_stat(StatType.ATTACK_SPEED)
+		"melee_power":
+			return get_stat(StatType.MELEE_POWER)
+		"ranged_power":
+			return get_stat(StatType.RANGED_POWER)
+		"magic_power":
+			return get_stat(StatType.MAGIC_POWER)
+		"melee_defense":
+			return get_stat(StatType.MELEE_DEFENSE)
+		"ranged_defense":
+			return get_stat(StatType.RANGED_DEFENSE)
+		"magic_defense":
+			return get_stat(StatType.MAGIC_DEFENSE)
+		"max_health":
+			return get_stat(StatType.MAX_HEALTH)
+		"crit_chance":
+			return get_stat(StatType.CRIT_CHANCE)
+		# Add more cases for additional stats if needed
+		_:
+			print("Unknown stat:", stat_string)
+			return null

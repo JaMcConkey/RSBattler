@@ -2,7 +2,6 @@ extends ItemData
 class_name EquipItem
 
 @export var test_stat_increase : Array[StatModifier]
-@export var gain_atk_styles : Array[AttackStyle]
 @export var gain_def_styles : Array[DefenseStyle]
 @export var equip_slot : EquipSlot
 

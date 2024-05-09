@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://c6t72bi4oxml6" path="res://Art/StyleIcons/melee_def_icon.png" id="1_e7atv"]
 [ext_resource type="Script" path="res://Combat/DefenseStyle.gd" id="1_sn38j"]
-[ext_resource type="Resource" uid="uid://btljdq7p4xo2c" path="res://Combat/AttackStyles/Melee.tres" id="2_ihjur"]
+[ext_resource type="Resource" uid="uid://btljdq7p4xo2c" path="res://Combat/DamageTypes/Melee.tres" id="2_ihjur"]
 
 [resource]
 script = ExtResource("1_sn38j")

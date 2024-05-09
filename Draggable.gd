@@ -25,3 +25,6 @@ func _on_gui_input(event):
 			# Move the Control node based on mouse movement
 			control_to_move.global_position = get_global_mouse_position() - offset
 			return true
+
+func _ready():
+	add_to_group("draggables")

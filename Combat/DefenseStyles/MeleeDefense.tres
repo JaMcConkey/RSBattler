@@ -2,10 +2,11 @@
 
 [ext_resource type="Texture2D" uid="uid://c6t72bi4oxml6" path="res://Art/StyleIcons/melee_def_icon.png" id="1_41yu3"]
 [ext_resource type="Script" path="res://Combat/DefenseStyle.gd" id="1_et5gh"]
-[ext_resource type="Resource" uid="uid://btljdq7p4xo2c" path="res://Combat/AttackStyles/Melee.tres" id="1_g4rl3"]
+[ext_resource type="Resource" uid="uid://btljdq7p4xo2c" path="res://Combat/DamageTypes/Melee.tres" id="1_g4rl3"]
 
 [resource]
 script = ExtResource("1_et5gh")
 icon = ExtResource("1_41yu3")
 style_name = "MeleeDefense"
 protects_against = Array[Resource("res://Combat/DamageType.gd")]([ExtResource("1_g4rl3")])
+reduction_percent = 0.5

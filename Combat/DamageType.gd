@@ -1,5 +1,5 @@
 extends Resource
-class_name AttackStyle
+class_name DamageType
 
 @export var icon : Texture
 @export var style_name : String

@@ -1,18 +1,24 @@
-[gd_resource type="Resource" script_class="Weapon" load_steps=5 format=3 uid="uid://bjtfcsddl05rm"]
+[gd_resource type="Resource" script_class="Weapon" load_steps=6 format=3 uid="uid://bjtfcsddl05rm"]
 
 [ext_resource type="Script" path="res://Items/Weapon.gd" id="1_51e2e"]
-[ext_resource type="Resource" uid="uid://btljdq7p4xo2c" path="res://Combat/AttackStyles/Melee.tres" id="1_rau4j"]
-[ext_resource type="Resource" uid="uid://dgiekawwbv8sg" path="res://Combat/AttackStyles/Ranged.tres" id="2_vnxoa"]
+[ext_resource type="Resource" uid="uid://btljdq7p4xo2c" path="res://Combat/DamageTypes/Melee.tres" id="1_kp6jy"]
+[ext_resource type="Script" path="res://StatModifier.gd" id="3_d27ui"]
 [ext_resource type="Texture2D" uid="uid://brlri5t4npnwt" path="res://Art/InventoryIcons/MainHandIcon.png" id="4_bfeqd"]
+
+[sub_resource type="Resource" id="Resource_5da7h"]
+script = ExtResource("3_d27ui")
+stat = 1
+add_amount = 5.0
+multiplier = 0.0
 
 [resource]
 script = ExtResource("1_51e2e")
 two_handed = false
-test_stat_increase = Array[Resource("res://StatModifier.gd")]([])
-gain_atk_styles = Array[Resource("res://Combat/DamageType.gd")]([ExtResource("1_rau4j"), ExtResource("2_vnxoa")])
+dmg_type = ExtResource("1_kp6jy")
+test_stat_increase = Array[ExtResource("3_d27ui")]([SubResource("Resource_5da7h")])
 gain_def_styles = Array[Resource("res://Combat/DefenseStyle.gd")]([])
 equip_slot = 0
-item_name = ""
+item_name = "Sword"
 item_description = ""
 item_type = 7
 texture = ExtResource("4_bfeqd")

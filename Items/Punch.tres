@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Weapon" load_steps=3 format=3 uid="uid://caltre40nry4k"]
+
+[ext_resource type="Script" path="res://Items/Weapon.gd" id="1_65ah3"]
+[ext_resource type="Resource" uid="uid://btljdq7p4xo2c" path="res://Combat/DamageTypes/Melee.tres" id="1_cuj8i"]
+
+[resource]
+script = ExtResource("1_65ah3")
+two_handed = false
+dmg_type = ExtResource("1_cuj8i")
+test_stat_increase = Array[Resource("res://StatModifier.gd")]([])
+gain_def_styles = Array[Resource("res://Combat/DefenseStyle.gd")]([])
+equip_slot = 0
+item_name = "Punch"
+item_description = "Punch"
+item_type = 7

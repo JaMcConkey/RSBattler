@@ -34,7 +34,8 @@ func add_item_to_free_slot(item : InventoryItem) -> bool:
 
 func make_and_add_item(item_data : ItemData):
 	var to_add := InventoryItem.new()
-	to_add.init(item_data)
+	var item_data_to_add = item_data.duplicate()
+	to_add.init(item_data_to_add)
 	to_add.hide()
 	add_child(to_add)
 	if not add_item_to_free_slot(to_add):
